@@ -41,12 +41,26 @@
         },
         methods:{
             onLoad(){
-
+                //JsCallNative.callAirKissEncoder('ssid','password');
+            },
+            airkissCall(msg) {
+                console.log(this.loading);
+                this.loading = true;
+                console.log(msg);
             }
         },
         components:{
             headerNavBar:headerNavBar
-        }
+        },
+        created() {
+            var this_ = this;
+            window.airkissCall = function (msg) {
+                this_.airkissCall(msg);
+            }
+        },
+        mounted() {
+            //window.airkissCall('hello');
+        },
     }
 </script>
 
