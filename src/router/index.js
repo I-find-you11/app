@@ -9,6 +9,9 @@ import showData from '@/view/showData'
 
 Vue.use(Router)
 
+/*
+**         index 表示主页面导航索引的索引。home页面会实时找到路由的index数值然后赋值给导航响应参数来高亮当前导航
+*/
 export default new Router({
   routes: [
     {
@@ -27,7 +30,7 @@ export default new Router({
           name: 'airkiss',
           component: airkiss,
           meta:{
-            index:0
+            index:0              
           }
         },{
           path: '/home/ScanningDevice',

@@ -25,6 +25,15 @@
                 console.log(this.nav_active);
             }
         },
+        watch:{
+            $route(to,from){
+                console.log(to);
+                
+                if(to.meta.index) {
+                    this.nav_active = to.meta.index;   //监听路由跳转  实时刷新底部页面
+                }
+            }
+        },
         created(){
             
         }
