@@ -1,0 +1,96 @@
+<template>
+    <div>
+        <headerNavBar :title='"输入数据"'></headerNavBar>
+        <van-collapse v-model="activeNames">
+            <van-collapse-item title="输入IP/PORT" name="ip">
+                <van-cell-group>
+                    <van-field
+                        v-model="IpData.ip"
+                        required
+                        clearable
+                        label="IP"
+                        placeholder="请输入IP"
+                    />
+                    <van-field
+                        v-model="IpData.port"
+                        required
+                        clearable
+                        label="PORT"
+                        placeholder="请输入PORT"
+                    />
+                </van-cell-group>
+            </van-collapse-item>
+            <van-collapse-item title="输入/查看雷达设备信息参数" name="Device">
+                <van-cell-group>
+                    <van-field
+                        v-model="IpData.ip"
+                        required
+                        clearable
+                        label="LED"
+                        placeholder="请输入LED"
+                    />
+                    <van-field
+                        v-model="IpData.port"
+                        required
+                        clearable
+                        label="模式"
+                        placeholder="请输入模式"
+                    />
+                    <van-field
+                        v-model="IpData.port"
+                        required
+                        clearable
+                        label="最小距离"
+                        placeholder="请输入最小距离 "
+                    />
+                    <van-field
+                        v-model="IpData.port"
+                        required
+                        clearable
+                        label="最大距离"
+                        placeholder="请输入最大距离 "
+                    />
+                    <van-field
+                        v-model="IpData.port"
+                        required
+                        clearable
+                        label="灵敏度"
+                        placeholder="请输入灵敏度"
+                    />
+                    <van-field
+                        v-model="IpData.port"
+                        required
+                        clearable
+                        label="模块安装高度"
+                        placeholder="请输入模块安装高度"
+                    />
+                </van-cell-group>
+            </van-collapse-item>
+        </van-collapse>
+    </div>
+</template>
+
+<script>
+    import headerNavBar from '@/components/headerNavBar'
+    export default {
+        data(){
+            return {
+                activeNames: ['ip'],
+                IpData:{
+                    Ip:'',
+                    port:''
+                }
+            }
+        },
+        methods:{
+            
+        },
+        components:{
+            headerNavBar:headerNavBar
+        }
+    }
+</script>
+
+<style scoped>
+
+</style>

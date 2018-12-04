@@ -1,0 +1,29 @@
+<template>
+    <div>
+        <van-nav-bar class='blue' :title="title" left-text="返回" left-arrow @click-left="onClickLeft">
+            <van-icon :name="icon?icon:null" slot="right" />
+        </van-nav-bar>
+    </div>
+</template>
+
+<script>
+    export default {
+        data() {
+            return {
+
+            }
+        },
+        props: ['title','icon'],
+        methods:{
+            onClickLeft(){
+                this.$router.back(-1);
+            }
+        }
+    }
+</script>
+
+<style scoped>
+.blue {
+    color: #1989fa;
+}
+</style>
