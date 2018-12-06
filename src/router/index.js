@@ -12,6 +12,7 @@ import InputData from '@/view/InputData'
 import showData from '@/view/showData'
 import login from '@/view/login'
 import cs from '@/view/cs'
+import PersonalCenter from '@/view/PersonalCenter'
 
 
 Vue.use(Router)
@@ -52,6 +53,13 @@ const homeChild = [
     component: showData,
     meta:{
       index:3
+    }
+  },{
+    path: '/home/PersonalCenter',
+    name: 'PersonalCenter',
+    component: PersonalCenter,
+    meta:{
+      index:4,         
     }
   },
 ]

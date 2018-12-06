@@ -9,6 +9,7 @@
             <van-tabbar-item to='/home/ScanningDevice' icon="aim">扫描设备</van-tabbar-item>
             <van-tabbar-item to='/home/InputData' icon="records">数据输入</van-tabbar-item>
             <van-tabbar-item to='/home/showData' icon="wap-nav">数据展示</van-tabbar-item>
+            <van-tabbar-item to='/home/PersonalCenter' icon="location">个人中心</van-tabbar-item>
         </van-tabbar>
     </div>
 </template>
