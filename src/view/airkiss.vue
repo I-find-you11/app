@@ -1,18 +1,20 @@
 <template>
     <div>
         <headerNavBar :title='"配网"'></headerNavBar>
-        <van-list
-            :loading='loading'
-            @load="onLoad"
-            class='wifiList'
-        >
-        <van-cell
-            v-for="(item,index) in wifiList"
-            :key="index"
-            :title="item.name"
-            icon="share"
-        />
-        </van-list>
+        <van-cell-group>
+            <van-field
+                v-model="wifiInfor.wifiName"
+                placeholder="请输入wifi名称"
+                input-align='center'
+            />
+
+            <van-field
+                v-model="wifiInfor.wifiPassword"
+                type="password"
+                placeholder="请输入wifi密码"
+                input-align='center'
+            />
+        </van-cell-group>
     </div>
 </template>
 
@@ -21,22 +23,10 @@
     export default {
         data(){
             return {
-                loading: false,
-                wifiList:[{
-                    name:'360wifi'
-                },{
-                    name:'361wifi'
-                },{
-                    name:'362wifi'
-                },{
-                    name:'363wifi'
-                },{
-                    name:'364wifi'
-                },{
-                    name:'365wifi'
-                },{
-                    name:'366wifi'
-                }]
+                wifiInfor:{
+                    wifiName:'',
+                    wifiPassword:''
+                }
             }
         },
         methods:{

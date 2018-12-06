@@ -1,7 +1,7 @@
 <template>
     <div>
         <van-nav-bar class='blue' :title="title" left-text="返回" left-arrow @click-left="onClickLeft">
-            <van-icon :name="icon?icon:null" slot="right" />
+            <van-icon @click="IconClick" :name="icon?icon:null" slot="right" />
         </van-nav-bar>
     </div>
 </template>
@@ -17,6 +17,9 @@
         methods:{
             onClickLeft(){
                 this.$router.back(-1);
+            },
+            IconClick(){
+                this.$emit('addDevice',true);
             }
         }
     }
