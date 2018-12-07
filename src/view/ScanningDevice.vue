@@ -11,6 +11,7 @@
             :key="index"
             :title="item.name"
             icon="aim"
+            @click='changeDevice(item.id)'
         />
         </van-list>
 
@@ -31,12 +32,12 @@
                 <van-button class='submit_btn' plain round @click='addSubmit'>添加</van-button>
             </div>
         </van-popup>
-
     </div>
 </template>
 
 <script>
     import headerNavBar from '@/components/headerNavBar'
+    import store from '@/vuex/store'
     export default {
         data(){
             return {
@@ -49,19 +50,26 @@
                 },
                 loading: false,
                 deviceList:[{
-                    name:'设备1'
+                    name:'设备1',
+                    id:1
                 },{
-                    name:'设备2'
+                    name:'设备2',
+                    id:2
                 },{
-                    name:'设备3'
+                    name:'设备3',
+                    id:3
                 },{
-                    name:'设备4'
+                    name:'设备4',
+                    id:4
                 },{
-                    name:'设备5'
+                    name:'设备5',
+                    id:5
                 },{
-                    name:'设备6'
+                    name:'设备6',
+                    id:6
                 },{
-                    name:'设备7'
+                    name:'设备7',
+                    id:7
                 }]
             }
         },
@@ -76,11 +84,17 @@
             addSubmit(){
                 this.addDevice.show = false;
                 console.log('添加成功');
+            },
+            changeDevice(id){
+                console.log(this.$store.state.deviceId);
+                this.$store.state.deviceId = id;
+                this.$router.push({path:'/home/InputData'})
             }
         },
         components:{
             headerNavBar:headerNavBar
         },
+        store,
     }
 </script>
 

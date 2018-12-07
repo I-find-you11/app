@@ -15,6 +15,7 @@
                 input-align='center'
             />
         </van-cell-group>
+        <van-popup v-model="AirkissOk" class='popup'>配网成功</van-popup>
     </div>
 </template>
 
@@ -26,7 +27,8 @@
                 wifiInfor:{
                     wifiName:'',
                     wifiPassword:''
-                }
+                },
+                AirkissOk:false
             }
         },
         methods:{
@@ -34,18 +36,16 @@
                 //JsCallNative.callAirKissEncoder('ssid','password');
             },
             airkissCall(msg) {
-                console.log(this.loading);
-                this.loading = true;
                 console.log(msg);
+                this.AirkissOk = true;
             }
         },
         components:{
             headerNavBar:headerNavBar
         },
         created() {
-            var this_ = this;
-            window.airkissCall = function (msg) {
-                this_.airkissCall(msg);
+            window.airkissCall = (msg) => {
+                this.airkissCall(msg);
             }
         },
         mounted() {
@@ -55,5 +55,7 @@
 </script>
 
 <style scoped>
-
+.popup {
+    padding:20px 30px;
+}
 </style>

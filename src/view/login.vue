@@ -39,8 +39,6 @@
         },
         methods : {
             submit(){
-                console.log(this.$store.state);
-                
                 this.$store.state.isLogin = true;
                 this.$router.push({path: this.$route.query.redirect || '/home/'});
             }

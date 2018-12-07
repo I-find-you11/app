@@ -7,7 +7,8 @@ const state = {
     user : {
         name: '11'
     },
-    a : ''
+    a : '',
+    deviceId:''
 }
 
 export default new Vuex.Store({
