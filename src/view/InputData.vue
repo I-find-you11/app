@@ -96,7 +96,10 @@
                 this.$dialog.alert({
                     message: '没有选择设备，请先选择设备再进行操作'
                 }).then(() => {
-                    this.$router.push({path:'/home/ScanningDevice'})
+                   this.$router.push({
+                        path: '/home/ScanningDevice',
+                        query: {redirect: this.$route.fullPath}                               //将即将跳转的路由path作为参数，登录成功后跳转到该路由
+                    })
                 });
             }else {
                 console.log('存在设备ID'); 

@@ -27,9 +27,9 @@
 
 <style scoped>
 .userImg {
-    height: 50px;
-    line-height: 50px;
-    padding: 15px;
+    height: 45px;
+    line-height: 45px;
+    padding: 10px 15px;
     background: white;
     margin-top: 30px;
     font-size: 0;
@@ -50,6 +50,7 @@
     overflow: hidden;
 }
 .submit{
-    background: #d49f4c;
+    background: #1989fa;
+    color: #fff;
 }
 </style>

@@ -7,6 +7,7 @@ import vant from 'vant'
 import { Dialog } from 'vant';
 import 'vant/lib/index.css';
 
+
 Vue.use(vant)
 Vue.use(Dialog)
 Vue.config.productionTip = false

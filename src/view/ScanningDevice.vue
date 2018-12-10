@@ -88,7 +88,7 @@
             changeDevice(id){
                 console.log(this.$store.state.deviceId);
                 this.$store.state.deviceId = id;
-                this.$router.push({path:'/home/InputData'})
+                this.$router.push({path: this.$route.query.redirect || '/home/InputData'});
             }
         },
         components:{
