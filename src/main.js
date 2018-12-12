@@ -4,13 +4,15 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import vant from 'vant'
-import { Dialog } from 'vant';
+import { Toast } from 'vant';
+
 import 'vant/lib/index.css';
 
 
-Vue.use(vant)
-Vue.use(Dialog)
-Vue.config.productionTip = false
+Vue.use(vant);
+Vue.use(Toast);
+Vue.config.productionTip = false;
+Vue.prototype.$Toast = Toast;
 
 
 /* eslint-disable no-new */

@@ -1,8 +1,10 @@
 <template>
     <div>
-        <transition name="fade" mode='out-in'>
-            <router-view/>
-        </transition>
+        <div class='homePage'>   
+            <transition name="fade" mode='out-in'>
+                <router-view/>
+            </transition>
+        </div>
         
         <van-tabbar v-model="nav_active" :change='nav_click()'>
             <van-tabbar-item to='/home/' icon="setting">配网</van-tabbar-item>
@@ -53,5 +55,8 @@
 .fade-leave-active{
     opacity:0;
     transition:opacity .5s;
+}
+.homePage {
+    padding-bottom: 50px;
 }
 </style>
