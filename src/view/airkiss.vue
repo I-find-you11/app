@@ -49,7 +49,7 @@
             },
             submit(){
                 if(this.wifiInfor.wifiName && this.wifiInfor.wifiPassword) { 
-                    //android.showToast(this.wifiInfor.wifiName,this.wifiInfor.wifiPassword);
+                    android.showToast(this.wifiInfor.wifiName,this.wifiInfor.wifiPassword);
                     //开启配网链接的loding动画
                     this.$Toast.loading({
                         mask: true,
@@ -58,7 +58,7 @@
                     });
                     this.timer = setTimeout(()=>{
                         this.$Toast('配置失败');
-                    },60*1000);           //失败由前端控制 超过定时器设置的时间 显示配置失败 
+                    },30*1000);                               //失败由前端控制 超过定时器设置的时间 显示配置失败
                 }else {
                     this.$Toast('wifi名称和密码不能为空');
                 }

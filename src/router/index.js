@@ -10,9 +10,9 @@ import airkiss from '@/view/airkiss'
 import ScanningDevice from '@/view/ScanningDevice'           
 import InputData from '@/view/InputData'
 import showData from '@/view/showData'
-import login from '@/view/login'
+//import login from '@/view/login'                     //登陆路由  暂时不需要
 import cs from '@/view/cs'
-import PersonalCenter from '@/view/PersonalCenter'
+//import PersonalCenter from '@/view/PersonalCenter'   //个人中心路由 展示不需要
 
 
 Vue.use(Router)
@@ -54,27 +54,12 @@ const homeChild = [
     meta:{
       index:3
     }
-  },{
-    path: '/home/PersonalCenter',
-    name: 'PersonalCenter',
-    component: PersonalCenter,
-    meta:{
-      index:4,         
-    }
-  },
+  }
 ]
 
 
 const router =  new Router({
   routes: [
-    {
-      path: '/login',
-      name:'login',
-      component: login,
-      meta:{
-        requireAuth : true              
-      }
-    },
     {
       path: '/cs',
       name:'cs',
@@ -95,20 +80,22 @@ const router =  new Router({
   ]
 })
 
-router.beforeEach((to, from, next) => {
-  if (!to.meta.requireAuth) {                                           //判断该路由是否需要验证登录
-      if (store.state.isLogin) {                             // 通过vuex state获取当前的token是否存在 如果存在 继续执行路由跳转
-        next();
-      }else {                                                          //如果不存在token 路由链接到登陆页面
-        next({
-          path: '/login',
-          query: {redirect: to.fullPath}                               //将即将跳转的路由path作为参数，登录成功后跳转到该路由
-        })
-      }
-  }
-  else {
-    next();
-  }
-})
+
+// 登陆权限 --》 目前app是局域网链接   所以不需要登陆
+// router.beforeEach((to, from, next) => {
+//   if (!to.meta.requireAuth) {                                           //判断该路由是否需要验证登录
+//       if (store.state.isLogin) {                             // 通过vuex state获取当前的token是否存在 如果存在 继续执行路由跳转
+//         next();
+//       }else {                                                          //如果不存在token 路由链接到登陆页面
+//         next({
+//           path: '/login',
+//           query: {redirect: to.fullPath}                               //将即将跳转的路由path作为参数，登录成功后跳转到该路由
+//         })
+//       }
+//   }
+//   else {
+//     next();
+//   }
+// })
 
 export default router
