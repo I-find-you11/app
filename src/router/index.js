@@ -12,7 +12,7 @@ import InputData from '@/view/InputData'
 import showData from '@/view/showData'
 //import login from '@/view/login'                     //登陆路由  暂时不需要
 import cs from '@/view/cs'
-//import PersonalCenter from '@/view/PersonalCenter'   //个人中心路由 展示不需要
+//import PersonalCenter from '@/view/PersonalCenter'   //个人中心路由 暂时不需要
 
 
 Vue.use(Router)
@@ -20,7 +20,7 @@ Vue.use(Router)
 /*
 **     路由参数说明:
 **         index:  表示主页面导航索引的索引。home页面会实时找到路由的index数值然后赋值给导航响应参数来高亮当前导航
-**         requireAuth:  表示当前路由是否需要登陆再能跳转
+**         requireAuth:  表示当前路由是否需要登陆再能跳转    //登陆暂时取消
 */
 
 //主页面下路由

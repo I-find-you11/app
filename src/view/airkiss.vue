@@ -11,9 +11,11 @@
 
             <van-field
                 v-model="wifiInfor.wifiPassword"
-                type="password"
+                :type="passWordShowBl?'':'password'"
                 placeholder="请输入wifi密码"
                 input-align='center'
+                icon='password-view'
+                @click-icon="passWordShow"
             />
         </van-cell-group>
         <div class='submit'>
@@ -36,11 +38,12 @@
                     NameD:false
                 },
                 timer:null,                                  //配置链接过程loding显示定时器
+                passWordShowBl:false
             }
         },
         methods:{
-            onLoad(){
-                //JsCallNative.callAirKissEncoder('ssid','password');
+            passWordShow(){
+                this.passWordShowBl = ! this.passWordShowBl;
             },
             //配置成功,安卓回调函数
             airkissCall(msg) {

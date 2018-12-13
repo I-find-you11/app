@@ -78,15 +78,15 @@
 
             },
             addDeviceFn(data){
-                console.log(data)
+                //console.log(data)
                 this.addDevice.show = data;
             },
             addSubmit(){
                 this.addDevice.show = false;
-                console.log('添加成功');
+                //console.log('添加成功');
             },
             changeDevice(id){
-                console.log(this.$store.state.deviceId);
+                //console.log(this.$store.state.deviceId);
                 this.$store.state.deviceId = id;
                 this.$router.push({path: this.$route.query.redirect || '/home/InputData'});
             }
