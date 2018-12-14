@@ -1,8 +1,8 @@
 a<template>
     <div>
-        <headerNavBar :title='"数据展示"'></headerNavBar>
+        <headerNavBar :title='"Data Show"'></headerNavBar>
         <div>
-            <van-tabs v-model="active" swipeable>
+            <!-- <van-tabs v-model="active" swipeable>
                 <van-tab title="Breathe Rate">
                     <VeLine :data="chartData"></VeLine>
                 </van-tab>
@@ -15,13 +15,19 @@ a<template>
                 <van-tab title="State">
                     <VeLine :data="chartData"></VeLine>
                 </van-tab>
-            </van-tabs>
+            </van-tabs> -->
             <!-- <van-tabs v-model="active">
                 <van-tab title="标签 1">内容 1</van-tab>
                 <van-tab title="标签 2">内容 2</van-tab>
                 <van-tab title="标签 3">内容 3</van-tab>
                 <van-tab title="标签 4">内容 4</van-tab>
             </van-tabs> -->
+            <div>
+                <VeLine :data="chartData1" :height='"250px"'></VeLine>
+            </div>
+            <div>
+                <VeLine :data="chartData2" :height='"250px"'></VeLine>
+            </div>     
         </div>
     </div>
 </template>
@@ -34,15 +40,36 @@ a<template>
         data(){
             return {
                 deviceId:'',
-                chartData: {
-                    columns: ['日期', '访问用户'],
+                chartData1: {
+                    columns: ['time', 'Breathe Rate','Heart Rate'],
                     rows: [
-                        { '日期': '1/1', '访问用户': 1393,},
-                        { '日期': '1/2', '访问用户': 3530,},
-                        { '日期': '1/3', '访问用户': 2923,},
-                        { '日期': '1/4', '访问用户': 1723,},
-                        { '日期': '1/5', '访问用户': 3792,},
-                        { '日期': '1/6', '访问用户': 4593,}
+                        { 'time': '1/1', 'Breathe Rate': 11.0,'Heart Rate':51.0},
+                        { 'time': '1/2', 'Breathe Rate': 14.0,'Heart Rate':51.0},
+                        { 'time': '1/3', 'Breathe Rate': 10.0,'Heart Rate':51.0},
+                        { 'time': '1/4', 'Breathe Rate': 11.0,'Heart Rate':51.0},
+                        { 'time': '1/5', 'Breathe Rate': 11.0,'Heart Rate':51.0},
+                        { 'time': '1/6', 'Breathe Rate': 14.0,'Heart Rate':51.0},
+                        { 'time': '1/7', 'Breathe Rate': 17.0,'Heart Rate':51.0},
+                        { 'time': '1/8', 'Breathe Rate': 17.0,'Heart Rate':51.0},
+                        { 'time': '1/9', 'Breathe Rate': 17.0,'Heart Rate':57.0},
+                        { 'time': '1/10', 'Breathe Rate': 17.0,'Heart Rate':57.0},
+                        { 'time': '1/11', 'Breathe Rate': 16.0,'Heart Rate':57.0},
+                    ]
+                },
+                chartData2: {
+                    columns: ['time', 'Distance','State'],
+                    rows: [
+                        { 'time': '1/1', 'Distance': 43.0,'State':'4'},
+                        { 'time': '1/2', 'Distance': 42.9,'State':'4'},
+                        { 'time': '1/3', 'Distance': 42.5,'State':'4'},
+                        { 'time': '1/4', 'Distance': 42.2,'State':'4'},
+                        { 'time': '1/5', 'Distance': 42.0,'State':'4'},
+                        { 'time': '1/6', 'Distance': 41.7,'State':'4'},
+                        { 'time': '1/7', 'Distance': 41.1,'State':'4'},
+                        { 'time': '1/8', 'Distance': 41.0,'State':'4'},
+                        { 'time': '1/9', 'Distance': 39.4,'State':'4'},
+                        { 'time': '1/10', 'Distance': 37.5,'State':'4'},
+                        { 'time': '1/11', 'Distance': 35.6,'State':'4'},
                     ]
                 },
                 active:0
