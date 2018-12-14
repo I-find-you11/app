@@ -3,16 +3,16 @@ a<template>
         <headerNavBar :title='"数据展示"'></headerNavBar>
         <div>
             <van-tabs v-model="active" swipeable>
-                <van-tab title="温度">
+                <van-tab title="Breathe Rate">
                     <VeLine :data="chartData"></VeLine>
                 </van-tab>
-                <van-tab title="心率">
+                <van-tab title="Heart Rate">
                     <VeLine :data="chartData"></VeLine>
                 </van-tab>
-                <van-tab title="可视距离">
+                <van-tab title="Distance">
                     <VeLine :data="chartData"></VeLine>
                 </van-tab>
-                <van-tab title="心率">
+                <van-tab title="State">
                     <VeLine :data="chartData"></VeLine>
                 </van-tab>
             </van-tabs>
@@ -53,13 +53,13 @@ a<template>
         },
         mounted() {
             //console.log(this.$route);
-            console.log(this.$store.state.deviceId);
+            //console.log(this.$store.state.deviceId);
             if(this.$store.state.deviceId != '') {
                 this.deviceId = this.$store.state.deviceId;
             }
             if(this.deviceId == ''){
                 this.$dialog.alert({
-                    message: '没有选择设备，请先选择设备再进行操作'
+                    message: 'No device selected, please select the device before proceeding'
                 }).then(() => {
                     this.$router.push({
                         path: '/home/ScanningDevice',
@@ -67,7 +67,7 @@ a<template>
                     })
                 });
             }else {
-                console.log('存在设备ID');
+                //console.log('存在设备ID');
             }
         },
         components:{

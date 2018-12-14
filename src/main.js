@@ -5,10 +5,11 @@ import App from './App'
 import router from './router'
 import vant from 'vant'
 import { Toast } from 'vant';
-
+import enUS from 'vant/lib/locale/lang/en-US';
 import 'vant/lib/index.css';
+import { Locale } from 'vant';
 
-
+Locale.use('en-US', enUS);
 Vue.use(vant);
 Vue.use(Toast);
 Vue.config.productionTip = false;

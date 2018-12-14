@@ -1,68 +1,67 @@
 <template>
     <div>
-        <headerNavBar :title='"输入数据"'></headerNavBar>
-        <van-collapse v-model="activeNames">
-            <van-collapse-item title="输入IP/PORT" name="ip">
+        <headerNavBar :title='"Paramater Settings"'></headerNavBar>
+        <van-collapse v-model="activeNames" class='Settings'>
+            <van-collapse-item title="Networks" name="ip" class='Settings'>
                 <van-cell-group>
                     <van-field
                         v-model="IpData.ip"
                         required
                         clearable
                         label="IP"
-                        placeholder="请输入IP"
+                        placeholder="Please enter IP"
                     />
                     <van-field
                         v-model="IpData.port"
                         required
                         clearable
                         label="PORT"
-                        placeholder="请输入PORT"
+                        placeholder="Please enter PORT"
                     />
                 </van-cell-group>
             </van-collapse-item>
-            <van-collapse-item title="输入/查看雷达设备信息参数" name="Device">
+            <van-collapse-item title="User Settings" name="Device">
                 <van-cell-group>
+                    <van-cell
+                        clickable
+                        title="LED"
+                        >
+                        <van-switch v-model="LED" />
+                    </van-cell>
                     <van-field
-                        v-model="IpData.ip"
+                        v-model="IpData.port"
                         required
                         clearable
-                        label="LED"
-                        placeholder="请输入LED"
+                        label="Data Mode"
+                        placeholder="Please change Mode"
                     />
                     <van-field
                         v-model="IpData.port"
                         required
                         clearable
-                        label="模式"
-                        placeholder="请输入模式"
+                        label="Min Distance"
+                        placeholder="Please enter Min Distance"
                     />
                     <van-field
                         v-model="IpData.port"
                         required
                         clearable
-                        label="最小距离"
-                        placeholder="请输入最小距离 "
+                        label="Max Distance"
+                        placeholder="Please enter Max Distance"
                     />
                     <van-field
                         v-model="IpData.port"
                         required
                         clearable
-                        label="最大距离"
-                        placeholder="请输入最大距离 "
+                        label="Sensitivity"
+                        placeholder="Please enter Sensitivity"
                     />
                     <van-field
                         v-model="IpData.port"
                         required
                         clearable
-                        label="灵敏度"
-                        placeholder="请输入灵敏度"
-                    />
-                    <van-field
-                        v-model="IpData.port"
-                        required
-                        clearable
-                        label="模块安装高度"
-                        placeholder="请输入模块安装高度"
+                        label="Mounting height"
+                        placeholder="Please enter Mounting height"
                     />
                 </van-cell-group>
             </van-collapse-item>
@@ -81,20 +80,24 @@
                     Ip:'',
                     port:''
                 },
-                deviceId:''
+                deviceId:'',
+                LED:false
             }
         },
         methods:{
-            
+            toggle() {
+                //console.log(11);
+                this.LED = !this.LED;
+            }
         },
         mounted() {
-            console.log(this.$store.state.deviceId);
+            //console.log(this.$store.state.deviceId);
             if(this.$store.state.deviceId != '') {
                 this.deviceId = this.$store.state.deviceId;
             }
             if(this.deviceId == ''){
                 this.$dialog.alert({
-                    message: '没有选择设备，请先选择设备再进行操作'
+                    message: 'No device selected, please select the device before proceeding'
                 }).then(() => {
                    this.$router.push({
                         path: '/home/ScanningDevice',
@@ -112,6 +115,11 @@
     }
 </script>
 
-<style scoped>
-
+<style>
+.Settings .van-field .van-cell__title {
+    max-width: none;
+}
+.Settings input {
+    text-align: right;
+}
 </style>

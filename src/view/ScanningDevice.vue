@@ -1,6 +1,6 @@
 <template>
     <div>
-        <headerNavBar :title='"扫描设备"' @addDevice='addDeviceFn' :icon='"add-o"'></headerNavBar>
+        <headerNavBar :title='"Dvice Scan"' @addDevice='addDeviceFn' :icon='"aim"'></headerNavBar>
         <van-list
             :loading='loading'
             @load="onLoad"

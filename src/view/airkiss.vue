@@ -1,25 +1,26 @@
 <template>
     <div>
-        <headerNavBar :title='"配网"'></headerNavBar>
+        <headerNavBar :title='"WIFI Config"'></headerNavBar>
         <van-cell-group>
             <van-field
                 v-model="wifiInfor.wifiName"
-                placeholder="请输入wifi名称"
+                placeholder="Please enter WIFI SSID"
                 input-align='center'
+                icon='success'
                 :disabled='wifiInfor.NameD'
             />
 
             <van-field
                 v-model="wifiInfor.wifiPassword"
                 :type="passWordShowBl?'':'password'"
-                placeholder="请输入wifi密码"
+                placeholder="Please enter WIFI Password"
                 input-align='center'
                 icon='password-view'
                 @click-icon="passWordShow"
             />
         </van-cell-group>
         <div class='submit'>
-            <van-button class='submit_btn' plain round size="normal" @click='submit'>连接</van-button>
+            <van-button class='submit_btn' plain round size="normal" @click='submit'>Connect</van-button>
         </div>
         <!-- <van-popup v-model="AirkissOk" class='popup'>配网成功</van-popup>
         <van-popup v-model="AirkissFailure" class='popup'>配网失败</van-popup> -->
@@ -48,7 +49,7 @@
             //配置成功,安卓回调函数
             airkissCall(msg) {
                 clearTimeout(this.timer);
-                this.$Toast('配置成功');
+                this.$Toast('Successful');
             },
             submit(){
                 if(this.wifiInfor.wifiName && this.wifiInfor.wifiPassword) { 
@@ -56,14 +57,14 @@
                     //开启配网链接的loding动画
                     this.$Toast.loading({
                         mask: true,
-                        message: '加载中...',
+                        message: 'Loding...',
                         duration:0
                     });
                     this.timer = setTimeout(()=>{
-                        this.$Toast('配置失败');
-                    },30*1000);                               //失败由前端控制 超过定时器设置的时间 显示配置失败
+                        this.$Toast('failed');
+                    },60*1000);                               //失败由前端控制 超过定时器设置的时间 显示配置失败
                 }else {
-                    this.$Toast('wifi名称和密码不能为空');
+                    this.$Toast('Wifi name and password cannot be empty');
                 }
             },
             getWifiName(msg) {

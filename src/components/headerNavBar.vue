@@ -1,6 +1,6 @@
 <template>
     <div>
-        <van-nav-bar class='blue' :title="title" left-text="返回" left-arrow @click-left="onClickLeft">
+        <van-nav-bar class='blue' :title="title" left-text="Back" left-arrow @click-left="onClickLeft">
             <van-icon @click="IconClick" :name="icon?icon:null" slot="right" />
         </van-nav-bar>
     </div>
