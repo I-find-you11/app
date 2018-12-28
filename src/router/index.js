@@ -20,7 +20,7 @@ Vue.use(Router)
 /*
 **     路由参数说明:
 **         index:  表示主页面导航索引的索引。home页面会实时找到路由的index数值然后赋值给导航响应参数来高亮当前导航
-**         requireAuth:  表示当前路由是否需要登陆再能跳转    //登陆暂时取消
+**         requireAuth:  表示当前路由是否需要登陆再能跳转          //登陆暂时取消
 */
 
 //主页面下路由
@@ -81,10 +81,10 @@ const router =  new Router({
 })
 
 
-// 登陆权限 --》 目前app是局域网链接   所以不需要登陆
+// 登陆权限 --> 目前app是局域网链接   所以不需要登陆
 // router.beforeEach((to, from, next) => {
-//   if (!to.meta.requireAuth) {                                           //判断该路由是否需要验证登录
-//       if (store.state.isLogin) {                             // 通过vuex state获取当前的token是否存在 如果存在 继续执行路由跳转
+//   if (!to.meta.requireAuth) {                                          //判断该路由是否需要验证登录
+//       if (store.state.isLogin) {                                       // 通过vuex state获取当前的token是否存在 如果存在 继续执行路由跳转
 //         next();
 //       }else {                                                          //如果不存在token 路由链接到登陆页面
 //         next({

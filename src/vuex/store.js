@@ -9,7 +9,8 @@ const state = {
     },
     a : '',
     deviceId:'',
-    wifiName:''
+    wifiName:'',
+    sacn:[]
 }
 
 export default new Vuex.Store({

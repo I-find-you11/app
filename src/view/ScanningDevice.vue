@@ -1,21 +1,21 @@
 <template>
     <div>
-        <headerNavBar :title='"Dvice Scan"' @addDevice='addDeviceFn' :icon='"aim"'></headerNavBar>
+        <headerNavBar :title='"Device Scan"' @addDevice='sacn' :icon='"aim"'></headerNavBar>
         <van-list
-            :loading='loading'
             @load="onLoad"
             class='wifiList'
         >
         <van-cell
             v-for="(item,index) in deviceList"
             :key="index"
-            :title="item.name"
+            :title="item.ip"
             icon="aim"
-            @click='changeDevice(item.id)'
+            @click='changeDevice(item.ip)'
         />
         </van-list>
 
-        <van-popup v-model="addDevice.show" class='popupDiv'>
+        <!-- 这里是添加设备 目前app 是通过本地扫描ip去实现 先不需求 --> 
+        <!-- <van-popup v-model="" class='popupDiv'>
             <van-cell-group>
                 <van-field
                     v-model="addDevice.data.DeviceName"
@@ -31,7 +31,7 @@
             <div class='submit'>
                 <van-button class='submit_btn' plain round @click='addSubmit'>添加</van-button>
             </div>
-        </van-popup>
+        </van-popup> -->
     </div>
 </template>
 
@@ -41,35 +41,9 @@
     export default {
         data(){
             return {
-                addDevice:{
-                    show:false,
-                    data:{
-                        DeviceName:'',
-                        DeviceId:''
-                    }
-                },
-                loading: false,
                 deviceList:[{
-                    name:'设备1',
-                    id:1
-                },{
-                    name:'设备2',
-                    id:2
-                },{
-                    name:'设备3',
-                    id:3
-                },{
-                    name:'设备4',
-                    id:4
-                },{
-                    name:'设备5',
-                    id:5
-                },{
-                    name:'设备6',
-                    id:6
-                },{
-                    name:'设备7',
-                    id:7
+                    ip:'35.239.35.104',
+                    id:''
                 }]
             }
         },
@@ -78,23 +52,67 @@
 
             },
             addDeviceFn(data){
-                //console.log(data)
-                this.addDevice.show = data;
+                
             },
             addSubmit(){
                 this.addDevice.show = false;
                 //console.log('添加成功');
             },
-            changeDevice(id){
+            sacn(){
+                this.deviceList = [];
+                this.$Toast.loading({
+                    mask: true,
+                    message: 'Loding...',
+                    duration:0
+                });
+                for(let i = 0; i<5; i++) {
+                    setTimeout(()=>{
+                        this.deviceList.push({
+                            ip:'35.239.35.' + i,
+                            id:''
+                        });
+                        this.$store.state.sacn.push({
+                            ip:'35.239.35.' + i,
+                            id:''
+                        });
+                        if(i == 4) {
+                            this.$Toast('扫描结束');
+                        }
+                    },i*1000)
+                }
+            },
+            changeDevice(ip){
                 //console.log(this.$store.state.deviceId);
-                this.$store.state.deviceId = id;
+                //alert(ip);
+                this.$store.state.deviceId = ip;
                 this.$router.push({path: this.$route.query.redirect || '/home/InputData'});
+            },
+            GetIp(ip){
+                alert(ip);
+                this.deviceList.push({
+                    ip:ip,
+                    id:'1'
+                })
             }
         },
         components:{
             headerNavBar:headerNavBar
         },
         store,
+        mounted() {
+            //函数执行时间过长 用异步加载
+            console.log(this.$store.state.sacn.length);
+            if(this.$store.state.sacn.length){
+                this.deviceList = this.$store.state.sacn;
+            }else {
+                this.sacn();
+            }
+        },
+        created() {
+            window.GetIp = (ip) => {
+                this.GetIp(ip);
+            }
+        }
     }
 </script>
 
@@ -106,4 +124,5 @@
     margin-top: 30px;
     text-align: center;
 }
+
 </style>

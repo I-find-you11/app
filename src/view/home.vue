@@ -8,7 +8,7 @@
         
         <van-tabbar v-model="nav_active" :change='nav_click()'>
             <van-tabbar-item to='/home/' icon="setting">WIFI Config</van-tabbar-item>
-            <van-tabbar-item to='/home/ScanningDevice' icon="aim">Dvice Scan</van-tabbar-item>
+            <van-tabbar-item to='/home/ScanningDevice' icon="aim">Device Scan</van-tabbar-item>
             <van-tabbar-item to='/home/InputData' icon="records">Settings</van-tabbar-item>
             <van-tabbar-item to='/home/showData' icon="wap-nav">Data Show</van-tabbar-item>
             <!-- <van-tabbar-item to='/home/PersonalCenter' icon="location">个人中心</van-tabbar-item> -->
