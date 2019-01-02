@@ -103,7 +103,7 @@
                 activeNames: ['ip'],
                 activeNames1: [],
                 IpData:{
-                    Ip:'127.0.0.1',
+                    Ip:this.$store.state.hostIp,
                     port:''
                 },
                 user:{
@@ -117,7 +117,7 @@
                 xinhao:'50DB',
                 deviceId:'',
                 LED:false,
-                isClient:false
+                isClient:false,       
             }
         },
         methods:{
@@ -144,7 +144,12 @@
             },
             sendFn1(){
                 this.isClient = true;
-                this.$Toast('发送成功');
+                andriod.sendServerIp(IpData.ip,IpData.port);
+                this.$Toast.loading({
+                    mask: true,
+                    message: 'Send...',
+                    duration:0
+                });
             },
             sendFn2(){
                 this.$Toast('发送成功');
@@ -171,6 +176,11 @@
         },
         components:{
             headerNavBar:headerNavBar
+        },
+        beforeCreate(){
+            window.sendIpBackFN = ()=>{
+                this.$Toast('Send successfully');
+            }
         },
         store
     }

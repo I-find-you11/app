@@ -41,10 +41,8 @@
     export default {
         data(){
             return {
-                deviceList:[{
-                    ip:'35.239.35.104',
-                    id:''
-                }]
+                deviceList:[],
+                scanIpover:false
             }
         },
         methods:{
@@ -60,26 +58,15 @@
             },
             sacn(){
                 this.deviceList = [];
+                setTimeout(()=>{
+                    android.runScan();
+                    this.$store.state.isFirstLoding = true;
+                })
                 this.$Toast.loading({
                     mask: true,
                     message: 'Loding...',
                     duration:0
                 });
-                for(let i = 0; i<5; i++) {
-                    setTimeout(()=>{
-                        this.deviceList.push({
-                            ip:'35.239.35.' + i,
-                            id:''
-                        });
-                        this.$store.state.sacn.push({
-                            ip:'35.239.35.' + i,
-                            id:''
-                        });
-                        if(i == 4) {
-                            this.$Toast('扫描结束');
-                        }
-                    },i*1000)
-                }
             },
             changeDevice(ip){
                 //console.log(this.$store.state.deviceId);
@@ -88,11 +75,22 @@
                 this.$router.push({path: this.$route.query.redirect || '/home/InputData'});
             },
             GetIp(ip){
-                alert(ip);
+
+                //页面填充设备对象 用于实时展示
                 this.deviceList.push({
                     ip:ip,
-                    id:'1'
                 })
+
+                //vuex填充对象 防止多次进入页面反复扫描设备
+                this.$store.state.sacn.push({
+                    ip:ip
+                });
+            },
+            GetIpOver(){
+                if(!this.scanIpover){
+                    this.scanIpover = true;
+                    this.$Toast('Over');
+                }
             }
         },
         components:{
@@ -101,16 +99,19 @@
         store,
         mounted() {
             //函数执行时间过长 用异步加载
-            console.log(this.$store.state.sacn.length);
-            if(this.$store.state.sacn.length){
+            if(this.$store.state.sacn.length > 0){
                 this.deviceList = this.$store.state.sacn;
             }else {
                 this.sacn();
             }
         },
         created() {
-            window.GetIp = (ip) => {
+            window.getClientIp = (ip) => {
                 this.GetIp(ip);
+            }
+
+            window.getClientIpOver = () => {
+                this.GetIpOver();
             }
         }
     }

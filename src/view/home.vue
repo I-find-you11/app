@@ -17,6 +17,7 @@
 </template>
 
 <script>
+    import store from '@/vuex/store'
     export default {
         data () {
             return {
@@ -37,7 +38,13 @@
         },
         created(){
             
-        }
+        },
+        beforeCreate() {
+            window.getHostIp = (e)=>{
+               this.$store.state.hostIp = e;
+            }
+        },
+        store
     }
 </script>
 
