@@ -69,8 +69,6 @@
                 });
             },
             changeDevice(ip){
-                //console.log(this.$store.state.deviceId);
-                //alert(ip);
                 this.$store.state.deviceId = ip;
                 this.$router.push({path: this.$route.query.redirect || '/home/InputData'});
             },
@@ -87,10 +85,7 @@
                 });
             },
             GetIpOver(){
-                if(!this.scanIpover){
-                    this.scanIpover = true;
-                    this.$Toast('Over');
-                }
+                this.$Toast('Scan Over');
             }
         },
         components:{

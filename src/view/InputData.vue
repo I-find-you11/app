@@ -126,21 +126,10 @@
                 this.LED = !this.LED;
             },
             server(e){
-                console.log(e);
-                if(!this.isClient) {
-                    this.$Toast('请先修改设备ip地址');
-                    e.splice(e.indexOf('Device'),1);
-                }
-                if(e.indexOf('Device') != -1) {
-                    this.$Toast('建立服务端成功');
-                }
+               
             },
             Reset(){
-                if(!this.isClient) {
-                    this.$Toast('请开启服务端后再发送重置命令');
-                }else{
-                    this.$Toast('重置成功');
-                }
+                
             },
             sendFn1(){
                 this.isClient = true;
