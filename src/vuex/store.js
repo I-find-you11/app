@@ -8,7 +8,10 @@ const state = {
         name: '11'
     },
     a : '',
-    deviceId:'',
+    deviceInfor:{
+        ip:'',
+        index:''
+    },
     wifiName:'',
     hostIp:'',
     sacn:[],

@@ -17,6 +17,8 @@
                         clearable
                         label="PORT"
                         placeholder="Please enter PORT"
+                        type='number'
+                        @inptu='portVali'
                     />
                 </van-cell-group>
 
@@ -117,7 +119,8 @@
                 xinhao:'50DB',
                 deviceId:'',
                 LED:false,
-                isClient:false,       
+                isClient:false,
+                device:this.$store.state.sacn.deviceInfor, 
             }
         },
         methods:{
@@ -142,6 +145,21 @@
             },
             sendFn2(){
                 this.$Toast('发送成功');
+            },
+            ResetSsid(){
+                andriod.ResetSsid();
+                this.$store.state.sacn.splice(device.index,0);
+                this.$store.state.deviceInfor = {};
+                this.$router.push({
+                    path: '/home/ScanningDevice',
+                    query: {redirect: this.$route.fullPath}                               //将即将跳转的路由path作为参数，登录成功后跳转到该路由
+                })
+            },
+            portVali(){
+                if(parseInt(this.IpData.prot) > 65538) {
+                    this.$Toast('Port cannot be greater than 65535');
+                    this.IpData.prot = 65535;
+                }
             }
         },
         mounted() {
@@ -170,6 +188,7 @@
             window.sendIpBackFN = ()=>{
                 this.$Toast('Send successfully');
             }
+            
         },
         store
     }

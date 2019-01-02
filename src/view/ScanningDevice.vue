@@ -10,7 +10,7 @@
             :key="index"
             :title="item.ip"
             icon="aim"
-            @click='changeDevice(item.ip)'
+            @click='changeDevice(item.ip,index)'
         />
         </van-list>
 
@@ -68,8 +68,9 @@
                     duration:0
                 });
             },
-            changeDevice(ip){
-                this.$store.state.deviceId = ip;
+            changeDevice(ip,index){
+                this.$store.state.deviceInfor.ip = ip;
+                this.$store.state.deviceInfor.index = index;
                 this.$router.push({path: this.$route.query.redirect || '/home/InputData'});
             },
             GetIp(ip){
