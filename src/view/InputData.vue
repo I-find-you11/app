@@ -185,8 +185,12 @@
             headerNavBar:headerNavBar
         },
         beforeCreate(){
-            window.sendIpBackFN = ()=>{
-                this.$Toast('Send successfully');
+            window.sendIpBackFN = (e)=>{
+                if(e =='1') {
+                    this.$Toast('Send successfully');
+                }else {
+                    this.$Toast('Failed successfully, try again');
+                }
             }
             
         },
