@@ -8,9 +8,14 @@ const state = {
         name: '11'
     },
     a : '',
-    deviceId:'',
+    deviceInfor:{
+        ip:'',
+        index:''
+    },
     wifiName:'',
-    sacn:[]
+    hostIp:'',
+    sacn:[],
+    isFirstLoding:false
 }
 
 export default new Vuex.Store({

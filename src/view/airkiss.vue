@@ -66,11 +66,9 @@
                 }
             },
             getWifiName(msg) {
-                if(!msg){
-                    this.$store.state.wifiName = msg;         //由于页面跳转会导致重绘 所以把 安卓传过来的wifi名称保存进 vuex 再进入页面的时候就直接 从vuex 获取
-                    this.wifiInfor.wifiName=msg;
-                    this.wifiInfor.NameD=true;
-                }
+                this.$store.state.wifiName = msg;         //由于页面跳转会导致重绘 所以把 安卓传过来的wifi名称保存进 vuex 再进入页面的时候就直接 从vuex 获取
+                this.wifiInfor.wifiName=msg;
+                this.wifiInfor.NameD=true;
             }
         },
         components:{
@@ -87,6 +85,11 @@
             //这是给安卓返回wifi密码的回调函数
             window.getWifiName = (msg) => {
                 this.getWifiName(msg);
+            }
+
+            //
+            window.getHostIp = (e)=>{
+               this.$store.state.hostIp = e;
             }
         },
         created () {

@@ -9,6 +9,7 @@ import enUS from 'vant/lib/locale/lang/en-US';
 import 'vant/lib/index.css';
 import { Locale } from 'vant';
 import axios from 'axios'
+import hexFn from './assets/js/hextoFloat'
 
 Locale.use('en-US', enUS);        //vant 改成英文版本
 Vue.use(vant);
@@ -16,7 +17,7 @@ Vue.use(Toast);
 Vue.config.productionTip = false;
 Vue.prototype.$Toast = Toast;
 Vue.prototype.$http = axios;
-
+Vue.prototype.$hexFn = hexFn;  // 16进制 和 浮点型互相转换函数
 
 
 /* eslint-disable no-new */
