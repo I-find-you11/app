@@ -8,6 +8,7 @@
                 input-align='center'
                 icon='success'
                 :disabled='wifiInfor.NameD'
+                @click-icon="changeWifiName"
             />
 
             <van-field
@@ -59,8 +60,8 @@
                         duration:0
                     });
                     this.timer = setTimeout(()=>{
-                        //this.$Toast('Connect Timeout,You can try to link again');
-                    },60*1000);          //配网超时 由前端控制 超过定时器设置的时间 显示配网超时
+                        this.$Toast('Connect Successfully Done!');
+                    },15*1000);          //配网超时 由前端控制 超过定时器设置的时间 显示配网超时
                 }else {
                     this.$Toast('Wifi name and password cannot be empty');
                 }
@@ -69,6 +70,11 @@
                 this.$store.state.wifiName = msg;         //由于页面跳转会导致重绘 所以把 安卓传过来的wifi名称保存进 vuex 再进入页面的时候就直接 从vuex 获取
                 this.wifiInfor.wifiName=msg;
                 this.wifiInfor.NameD=true;
+            },
+            changeWifiName(){
+                this.wifiInfor.wifiName='';
+                this.wifiInfor.NameD=false;
+                this.$store.state.wifiName = '';
             }
         },
         components:{

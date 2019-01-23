@@ -21,6 +21,7 @@ Vue.use(Router)
 **     路由参数说明:
 **         index:  表示主页面导航索引的索引。home页面会实时找到路由的index数值然后赋值给导航响应参数来高亮当前导航
 **         requireAuth:  表示当前路由是否需要登陆再能跳转          //登陆暂时取消
+**         cache      : 页面是否缓存
 */
 
 //主页面下路由
@@ -52,7 +53,8 @@ const homeChild = [
     name: 'showData',
     component: showData,
     meta:{
-      index:3
+      index:3,
+      cache:true
     }
   }
 ]

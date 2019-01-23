@@ -23,10 +23,10 @@ a<template>
                 <van-tab title="标签 4">内容 4</van-tab>
             </van-tabs> -->
             <div>
-                <VeLine :data="chartData1" :height='"250px"'></VeLine>
+                <div id='ScanEcharts1' class='echartsDiv' ref="ScanEcharts1"></div>
             </div>
             <div>
-                <VeLine :data="chartData2" :height='"250px"'></VeLine>
+                <div id='ScanEcharts2' class='echartsDiv' ref="ScanEcharts2"></div>
             </div>     
         </div>
     </div>
@@ -39,106 +39,96 @@ a<template>
     export default {
         data(){
             return {
-                deviceId:'',
-                chartData1: {
-                    columns: ['time', 'Breathe Rate','Heart Rate'],
-                    rows: [
-                        { 'time': '1/1', 'Breathe Rate': 11.0,'Heart Rate':51.0},
-                        { 'time': '1/2', 'Breathe Rate': 14.0,'Heart Rate':51.0},
-                        { 'time': '1/3', 'Breathe Rate': 10.0,'Heart Rate':51.0},
-                        { 'time': '1/4', 'Breathe Rate': 11.0,'Heart Rate':51.0},
-                        { 'time': '1/5', 'Breathe Rate': 11.0,'Heart Rate':51.0},
-                        { 'time': '1/6', 'Breathe Rate': 14.0,'Heart Rate':51.0},
-                        { 'time': '1/7', 'Breathe Rate': 17.0,'Heart Rate':51.0},
-                        { 'time': '1/8', 'Breathe Rate': 17.0,'Heart Rate':51.0},
-                        { 'time': '1/9', 'Breathe Rate': 17.0,'Heart Rate':57.0},
-                        { 'time': '1/10', 'Breathe Rate': 17.0,'Heart Rate':57.0},
-                        { 'time': '1/11', 'Breathe Rate': 16.0,'Heart Rate':57.0},
-                        { 'time': '1/12', 'Breathe Rate': 11.0,'Heart Rate':51.0},
-                        { 'time': '1/13', 'Breathe Rate': 14.0,'Heart Rate':51.0},
-                        { 'time': '1/14', 'Breathe Rate': 10.0,'Heart Rate':51.0},
-                        { 'time': '1/15', 'Breathe Rate': 11.0,'Heart Rate':51.0},
-                        { 'time': '1/16', 'Breathe Rate': 11.0,'Heart Rate':51.0},
-                        { 'time': '1/17', 'Breathe Rate': 14.0,'Heart Rate':51.0},
-                        { 'time': '1/18', 'Breathe Rate': 17.0,'Heart Rate':51.0},
-                        { 'time': '1/19', 'Breathe Rate': 17.0,'Heart Rate':51.0},
-                        { 'time': '1/20', 'Breathe Rate': 17.0,'Heart Rate':57.0},
-                        { 'time': '1/21', 'Breathe Rate': 17.0,'Heart Rate':57.0},
-                        { 'time': '1/22', 'Breathe Rate': 16.0,'Heart Rate':57.0},
-                        { 'time': '1/23', 'Breathe Rate': 11.0,'Heart Rate':51.0},
-                        { 'time': '1/24', 'Breathe Rate': 14.0,'Heart Rate':51.0},
-                        { 'time': '1/25', 'Breathe Rate': 10.0,'Heart Rate':51.0},
-                        { 'time': '1/26', 'Breathe Rate': 11.0,'Heart Rate':51.0},
-                        { 'time': '1/27', 'Breathe Rate': 11.0,'Heart Rate':51.0},
-                        { 'time': '1/28', 'Breathe Rate': 14.0,'Heart Rate':51.0},
-                        { 'time': '1/29', 'Breathe Rate': 17.0,'Heart Rate':51.0},
-                        { 'time': '1/30', 'Breathe Rate': 17.0,'Heart Rate':51.0},
-                        { 'time': '1/31', 'Breathe Rate': 17.0,'Heart Rate':57.0},
-                        { 'time': '1/32', 'Breathe Rate': 17.0,'Heart Rate':57.0},
-                        { 'time': '1/33', 'Breathe Rate': 16.0,'Heart Rate':57.0},
-                        { 'time': '1/34', 'Breathe Rate': 11.0,'Heart Rate':51.0},
-                        { 'time': '1/35', 'Breathe Rate': 14.0,'Heart Rate':51.0},
-                        { 'time': '1/36', 'Breathe Rate': 10.0,'Heart Rate':51.0},
-                        { 'time': '1/37', 'Breathe Rate': 11.0,'Heart Rate':51.0},
-                        { 'time': '1/38', 'Breathe Rate': 11.0,'Heart Rate':51.0},
-                        { 'time': '1/39', 'Breathe Rate': 14.0,'Heart Rate':51.0},
-                        { 'time': '1/40', 'Breathe Rate': 17.0,'Heart Rate':51.0},
-                        { 'time': '1/41', 'Breathe Rate': 17.0,'Heart Rate':51.0},
-                        { 'time': '1/42', 'Breathe Rate': 17.0,'Heart Rate':57.0},
-                        { 'time': '1/43', 'Breathe Rate': 17.0,'Heart Rate':57.0},
-                        { 'time': '1/44', 'Breathe Rate': 16.0,'Heart Rate':57.0},
+                deviceId:this.$store.state.deviceInfor.ip,
+                BreatheHeart: {
+                    title: {
+                        text: 'Breathe and Heart',
+                        left: 'right'
+                    },
+                    tooltip: {
+                        trigger: 'item',
+                        formatter: '{a} <br/>{b} : {c}'
+                    },
+                    legend: {
+                        left: 'left',
+                        data: ['Breathe', 'Heart']
+                    },
+                    xAxis: {
+                        type: 'category',
+                        name: 'x',
+                        splitLine: {show: false},
+                        data: []
+                    },
+                    grid: {
+                        left: '3%',
+                        right: '4%',
+                        bottom: '3%',
+                        containLabel: true
+                    },
+                    yAxis: {
+                        type: 'value',
+                        name: ''
+                    },
+                    series: [
+                        {
+                            name: 'Breathe',
+                            type: 'line',
+                            symbolSize :'3',
+                            data: []
+                        },
+                        {
+                            name: 'Heart',
+                            type: 'line',
+                            symbolSize :'3',
+                            data: []
+                        }
                     ]
                 },
-                chartData2: {
-                    columns: ['time', 'Distance','State'],
-                    rows: [
-                        { 'time': '1/1', 'Distance': 43.0,'State':'4'},
-                        { 'time': '1/2', 'Distance': 42.9,'State':'4'},
-                        { 'time': '1/3', 'Distance': 42.5,'State':'4'},
-                        { 'time': '1/4', 'Distance': 42.2,'State':'4'},
-                        { 'time': '1/5', 'Distance': 42.0,'State':'4'},
-                        { 'time': '1/6', 'Distance': 41.7,'State':'4'},
-                        { 'time': '1/7', 'Distance': 41.1,'State':'4'},
-                        { 'time': '1/8', 'Distance': 41.0,'State':'4'},
-                        { 'time': '1/9', 'Distance': 39.4,'State':'4'},
-                        { 'time': '1/10', 'Distance': 37.5,'State':'4'},
-                        { 'time': '1/11', 'Distance': 35.6,'State':'4'},
-                        { 'time': '1/12', 'Distance': 43.0,'State':'4'},
-                        { 'time': '1/13', 'Distance': 42.9,'State':'4'},
-                        { 'time': '1/14', 'Distance': 42.5,'State':'4'},
-                        { 'time': '1/15', 'Distance': 42.2,'State':'4'},
-                        { 'time': '1/16', 'Distance': 42.0,'State':'4'},
-                        { 'time': '1/17', 'Distance': 41.7,'State':'4'},
-                        { 'time': '1/18', 'Distance': 41.1,'State':'4'},
-                        { 'time': '1/19', 'Distance': 41.0,'State':'4'},
-                        { 'time': '1/20', 'Distance': 39.4,'State':'4'},
-                        { 'time': '1/21', 'Distance': 37.5,'State':'4'},
-                        { 'time': '1/22', 'Distance': 35.6,'State':'4'},
-                        { 'time': '1/23', 'Distance': 43.0,'State':'4'},
-                        { 'time': '1/24', 'Distance': 42.9,'State':'4'},
-                        { 'time': '1/25', 'Distance': 42.5,'State':'4'},
-                        { 'time': '1/26', 'Distance': 42.2,'State':'4'},
-                        { 'time': '1/27', 'Distance': 42.0,'State':'4'},
-                        { 'time': '1/28', 'Distance': 41.7,'State':'4'},
-                        { 'time': '1/29', 'Distance': 41.1,'State':'4'},
-                        { 'time': '1/30', 'Distance': 41.0,'State':'4'},
-                        { 'time': '1/31', 'Distance': 39.4,'State':'4'},
-                        { 'time': '1/32', 'Distance': 37.5,'State':'4'},
-                        { 'time': '1/33', 'Distance': 35.6,'State':'4'},
-                        { 'time': '1/34', 'Distance': 43.0,'State':'4'},
-                        { 'time': '1/35', 'Distance': 42.9,'State':'4'},
-                        { 'time': '1/36', 'Distance': 42.5,'State':'4'},
-                        { 'time': '1/37', 'Distance': 42.2,'State':'4'},
-                        { 'time': '1/38', 'Distance': 42.0,'State':'4'},
-                        { 'time': '1/39', 'Distance': 41.7,'State':'4'},
-                        { 'time': '1/40', 'Distance': 41.1,'State':'4'},
-                        { 'time': '1/41', 'Distance': 41.0,'State':'4'},
-                        { 'time': '1/42', 'Distance': 39.4,'State':'4'},
-                        { 'time': '1/43', 'Distance': 37.5,'State':'4'},
-                        { 'time': '1/44', 'Distance': 35.6,'State':'4'},
+                visibilityState: {
+                    title: {
+                        text: 'distance and State',
+                        left: 'right'
+                    },
+                    tooltip: {
+                        trigger: 'item',
+                        formatter: '{a} <br/>{b} : {c}'
+                    },
+                    legend: {
+                        left: 'left',
+                        data: ['distance', 'State']
+                    },
+                    xAxis: {
+                        type: 'category',
+                        name: 'x',
+                        splitLine: {show: false},
+                        data: []
+                    },
+                    grid: {
+                        left: '3%',
+                        right: '4%',
+                        bottom: '3%',
+                        containLabel: true
+                    },
+                    yAxis: {
+                        type: 'value',
+                        name: ''
+                    },
+                    series: [
+                        {
+                            name: 'distance',
+                            type: 'line',
+                            symbolSize :'3',
+                            data: []
+                        },
+                        {
+                            name: 'State',
+                            type: 'line',
+                            symbolSize :'3',
+                            data: []
+                        }
                     ]
                 },
-                active:0
+                active:0,
             }
         },
         methods:{
@@ -167,10 +157,59 @@ a<template>
             headerNavBar:headerNavBar,
             VeLine
         },
-        store
+        store,
+        mounted() {
+            window.getDataFormDevice = (e) =>{
+                var arrStr = e;
+                var arr = arrStr.split(',');
+                var distance = Math.round(this.$hexFn.HexToSingleBatch(arr[0])*10)/10;
+                var breathe = Math.round(this.$hexFn.HexToSingleBatch(arr[1])*10)/10;
+                var heart = Math.round(this.$hexFn.HexToSingleBatch(arr[2])*10)/10;
+                var visibility = Math.round(this.$hexFn.HexToSingleBatch(arr[3])*10)/10;
+                var state = Math.round(this.$hexFn.HexToSingleBatch(arr[4])*10)/10;
+                if(this.BreatheHeart.series[0].data.length>39) {
+                    this.BreatheHeart.series[0].data.splice(0,1);
+                    this.BreatheHeart.series[1].data.splice(0,1);
+                    this.visibilityState.series[0].data.splice(0,1);
+                    this.visibilityState.series[1].data.splice(0,1);
+                }
+                this.BreatheHeart.series[0].data.push(breathe);
+                this.BreatheHeart.series[1].data.push(heart);
+                this.visibilityState.series[0].data.push(distance);
+                this.visibilityState.series[1].data.push(state);
+                console.log(distance);
+                console.log(breathe);
+                console.log(visibility);
+                console.log(state);
+                // this.visibilityState.series[0].data.push(breathe);
+                // this.visibilityState.series[1].data.push(heart);
+                this.myChart1.setOption(this.BreatheHeart);
+                this.myChart2.setOption(this.visibilityState);
+            }
+            for(let i = 1; i<41; i++) {
+                this.BreatheHeart.xAxis.data.push(i);
+                this.visibilityState.xAxis.data.push(i);
+            }
+            this.myChart1.setOption(this.BreatheHeart);
+            this.myChart2.setOption(this.visibilityState);
+            
+        },
+        computed: {
+            myChart1() {
+                return this.$echarts.init(document.getElementById('ScanEcharts1'));
+                
+            },
+            myChart2() {
+                return this.$echarts.init(document.getElementById('ScanEcharts2'));
+            }
+        }
     }
 </script>
 
 <style scoped>
-
+.echartsDiv{
+    width:100%;
+    height:200px;
+    margin-top: 30px;
+}
 </style>

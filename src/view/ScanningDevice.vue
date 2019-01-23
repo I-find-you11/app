@@ -57,16 +57,19 @@
                 //console.log('添加成功');
             },
             sacn(){
-                this.deviceList = [];
-                setTimeout(()=>{
-                    android.runScan();
-                    this.$store.state.isFirstLoding = true;
-                })
                 this.$Toast.loading({
                     mask: true,
-                    message: 'Loding...',
+                    message: 'Scanning...',
                     duration:0
                 });
+                console.log(1);
+                var timer = null;           // 防抖函数   防止用户多次点击导致多次扫描设备  
+                this.deviceList = [];
+                this.$store.state.sacn=[];
+                timer = setTimeout(()=>{
+                    android.runScan();
+                    //this.$store.state.isFirstLoding = true;
+                },500)
             },
             changeDevice(ip,index){
                 android.switchIp(ip);
@@ -87,14 +90,21 @@
                 });
             },
             GetIpOver(){
-                this.$Toast('Scan Over');
+                if(this.deviceList.length ==0){
+                    this.$Toast('No device');
+                }else{
+                    this.$Toast('Scan Over');
+                }
+                
+                
             }
         },
         components:{
             headerNavBar:headerNavBar
         },
         store,
-        mounted() {
+        created() {
+            console.log(1);
             //函数执行时间过长 用异步加载
             if(this.$store.state.sacn.length > 0){
                 this.deviceList = this.$store.state.sacn;
@@ -102,7 +112,7 @@
                 this.sacn();
             }
         },
-        created() {
+        beforeCreate() {
             window.getClientIp = (ip) => {
                 this.GetIp(ip);
             }

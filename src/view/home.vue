@@ -1,7 +1,13 @@
 <template>
     <div>
         <div class='homePage'>   
-            <transition name="fade" mode='out-in'>
+            <transition name="fade" mode='out-in' v-if='$route.meta.cache'>
+                <keep-alive>
+                    <router-view/>
+                </keep-alive>
+            </transition>
+
+            <transition name="fade" mode='out-in' v-else>
                 <router-view/>
             </transition>
         </div>
@@ -40,9 +46,7 @@
             
         },
         beforeCreate() {
-            window.getDataFormDevice = (e) =>{
-                //alert(e);
-            }
+            
         },
         store
     }

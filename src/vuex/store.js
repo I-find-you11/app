@@ -15,7 +15,8 @@ const state = {
     wifiName:'',
     hostIp:'',
     sacn:[],
-    isFirstLoding:false
+    isFirstLoding:false,
+    historySetting:{}
 }
 
 export default new Vuex.Store({

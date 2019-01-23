@@ -1,6 +1,6 @@
 <template>
     <div>
-        <headerNavBar :title='"Paramater Settings"'></headerNavBar>
+        <headerNavBar :title='"Parameter Settings"' :icon='"close"' @addDevice='resetSsid'></headerNavBar>
         <van-collapse v-model="activeNames" class='Settings'>
             <van-collapse-item title="Networks" name="ip" class='Settings'>
                 <van-cell-group>
@@ -24,7 +24,6 @@
 
                 <van-button class='submit_btn' plain round size="normal" @click='sendFn1'>send</van-button>
                 
-                <van-button class='submit_btn' plain round size="normal" @click='resetSsid'>重置配网</van-button>
             </van-collapse-item>
         </van-collapse>
         
@@ -37,15 +36,15 @@
                         clearable
                         label="ID"
                         disabled
-                        placeholder="Please change Mode"
+                        placeholder=""
                     />
                     <van-field
                         v-model="xinhao"
                         required
                         clearable
-                        label="信号强度"
+                        label="WIFI RSSI"
                         disabled
-                        placeholder="Please change Mode"
+                        placeholder=""
                     />
                     <van-cell
                         clickable
@@ -89,8 +88,8 @@
                         placeholder="Please enter Mounting height"
                     />
                 </van-cell-group>
-                <van-button class='submit_btn' plain round size="normal" @click='sendFn2'>send</van-button>
-                <van-button class='submit_btn' plain round size="normal" @click='sendFn2'>提交上一次的数据</van-button>
+                <van-button class='submit_btn' plain round size="normal" @click='sendParam'>send</van-button>
+                <van-button class='submit_btn' plain round size="normal" @click='sendHistoryParam'>send previous param</van-button>
             </van-collapse-item>
         </van-collapse>
     </div>
@@ -103,21 +102,21 @@
         data(){
             return {
                 activeNames: ['ip'],
-                activeNames1: [],
+                activeNames1: ['Device'],
                 ipData:{
-                    // ip:this.$store.state.hostIp,
-                    ip:'35.239.35.110',
+                    ip:this.$store.state.hostIp,
+                    //ip:'35.239.35.110',
                     port:'12765'
                 },
                 user:{
-                    Mode:'f1',
-                    Min:'0.5',
+                    Mode:'F0',
+                    Min:'2.2',
                     Max:'3',
-                    Sensitivity:'20',
+                    Sensitivity:'15',
                     Mounting:'5'
                 },
-                id:'4654646',
-                xinhao:'50DB',
+                id:'',
+                xinhao:'',
                 deviceId:'',
                 LED:false,
                 isClient:false,
@@ -133,32 +132,44 @@
             server(e){
                 if(!this.isClient){
                     e.splice(0,1)
-                    this.$Toast('修改硬件目标IP后才能获取参数');
+                    this.$Toast('Modify the target server IP to get the parameters.');
                     return false;
                 }
-                android.getDeviceId();   //获取设备ID
+                //if(e.length == 0) {return false}
+                if(!this.getDeviceParamBl){ return false};
+                setTimeout(()=>{                            //设置定时器防止和参数一起获取
+                    android.getDeviceId();                                      //获取设备ID
+                },3000)
                 android.getDeviceParam();  //获取设备参数
-                
+
+                // this.$Toast.loading({
+                //     mask: true,
+                //     message: 'loding...',
+                //     duration:0
+                // });
             },
             Reset(){
                 
             },
             sendFn1(){
                 this.isClient = true;
-                // this.$Toast.loading({
-                //     mask: true,
-                //     message: 'Send...',
-                //     duration:0
-                // });
-                try {
-                    // alert(this.$store.state.deviceInfor.ip);
-                    //android.sendServerIp(this.$store.state.deviceInfor.ip,this.ipData.ip,this.ipData.port);
-                    //android.sendServerIp(this.ipData.ip,this.ipData.port);
-                }catch(e) {
-                    alert(e);
-                }
+                this.$Toast.loading({
+                    mask: true,
+                    message: 'Send...',
+                    duration:0
+                });
+                
+                setTimeout(()=>{
+                    try {
+                        //android.sendServerIp(this.$store.state.deviceInfor.ip,this.ipData.ip,this.ipData.port);
+                        android.sendServerIp(this.ipData.ip,this.ipData.port);
+                    }catch(e) {
+                        alert(e);
+                    }
+                })
+                
             },
-            sendFn2(){
+            sendParam(){                                       //将表单的数据转换成16进制发送给安卓
                 var led ='0' + (this.LED+0);
                 var Mode = this.user.Mode.toUpperCase().toString();
                 var Min = this.$hexFn.SingleToHexBatch('' + this.user.Min).toString();
@@ -166,20 +177,40 @@
                 var Sensitivity = this.$hexFn.SingleToHexBatch('' + this.user.Sensitivity).toString();
                 var Mounting = this.$hexFn.SingleToHexBatch('' + this.user.Mounting).toString();
                 android.sendDeviceParam(led,Mode,Min,Max,Sensitivity,Mounting);
+                this.$store.state.historyParam = {
+                    led,
+                    Mode,
+                    Min,
+                    Max,
+                    Sensitivity,
+                    Mounting
+                }
+            },
+            sendHistoryParam(){
+                var led =this.$store.state.historyParam.led;
+                var Mode = this.$store.state.historyParam.Mode;
+                var Min = this.$store.state.historyParam.Min;
+                var Max = this.$store.state.historyParam.Max;
+                var Sensitivity = this.$store.state.historyParam.Sensitivity;
+                var Mounting = this.$store.state.historyParam.Mounting;
+                android.sendDeviceParam(led,Mode,Min,Max,Sensitivity,Mounting);
             },
             resetSsid(){
                 android.resetSsid();
             },
-            getDeviceParamBack(e){         //解析返回过来的16进制数据
-                alert(1)
-                var arrStr = e;
-                var arr = arrStr.split(',');
-                this.LED = parseInt(arr[0]);
-                this.user.Mode = arr[1];
-                this.user.Min = Math.round(this.$hexFn.HexToSingleBatch(arr[2])*10)/10;
-                this.user.Max = Math.round(this.$hexFn.HexToSingleBatch(arr[3])*10)/10;
-                this.user.Sensitivity = Math.round(this.$hexFn.HexToSingleBatch(arr[4])*10)/10;
-                this.user.Mounting = Math.round(this.$hexFn.HexToSingleBatch(arr[5])*10)/10;
+            getDeviceParamBack(e){                        //解析返回过来的16进制数据
+                try{
+                    var arrStr = e;
+                    var arr = arrStr.split(',');
+                    this.LED = parseInt(arr[0]);
+                    this.user.Mode = arr[1];
+                    this.user.Min = Math.round(this.$hexFn.HexToSingleBatch(arr[2])*10)/10;
+                    this.user.Max = Math.round(this.$hexFn.HexToSingleBatch(arr[3])*10)/10;
+                    this.user.Sensitivity = Math.round(this.$hexFn.HexToSingleBatch(arr[4])*10)/10;
+                    this.user.Mounting = Math.round(this.$hexFn.HexToSingleBatch(arr[5])*10)/10;
+                }catch(e){
+                    alert(e);
+                }
             },
             portVali(){
                 if(parseInt(this.ipData.prot) > 65538) {
@@ -196,7 +227,7 @@
                 if(e =='1') {
                     this.$Toast('Send successfully');
                 }else {
-                    this.$Toast('Failed successfully, try again');
+                    this.$Toast('Send Failed, try again');
                 }
             }
         },
@@ -206,7 +237,7 @@
                 this.deviceId = this.$store.state.deviceId;
             }
 
-            // if(this.deviceId == ''){
+            // if(this.device.ip == ''){
             //     this.$dialog.alert({
             //         message: 'No device selected, please select the device before proceeding'
             //     }).then(() => {
@@ -224,12 +255,14 @@
             headerNavBar:headerNavBar
         },
         beforeCreate(){
-            window.sendIpBackFN = (e)=>{
-                this.msgBack(e)
+            window.sendIpBackFN = (e)=>{                                    //修改服务端IP地址回调函数
+                setTimeout(()=>{
+                    this.msgBack(e)
+                },6*1000)
             }
             
 
-            window.resetSsidBack = (e)=>{
+            window.resetSsidBack = (e)=>{                                   //重置配网回调函数
                 this.$store.state.sacn.splice(this.device.index,0);
                 this.$store.state.deviceInfor = {};
                 this.$router.push({
@@ -237,17 +270,20 @@
                 })
             }
 
-            window.getDeviceIdBack = (id)=>{
+            window.getDeviceIdBack = (id)=>{                                //获取设备ID回调函数
                 this.id = id;
+                this.$Toast('successfully');
             }
 
-            window.getDeviceParamBack = (e)=>{
+            window.getDeviceParamBack = (e)=>{                              //获取设备参数回调函数
                 this.getDeviceParamBl = false;
                 this.getDeviceParamBack(e);
+                
             }
 
-            window.sendDeviceParamBack = (e) =>{
-                this.msgBack(e)
+            window.sendDeviceParamBack = (e) =>{                            //发送参数回调函数
+                this.msgBack(e);
+                this.getDeviceParamBl = true;
             }
         },
         store
