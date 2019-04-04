@@ -134,25 +134,6 @@ a<template>
         methods:{
             
         },
-        mounted() {
-            //console.log(this.$route);
-            //console.log(this.$store.state.deviceId);
-            if(this.$store.state.deviceId != '') {
-                this.deviceId = this.$store.state.deviceId;
-            }
-            if(this.deviceId == ''){
-                this.$dialog.alert({
-                    message: 'No device selected, please select the device before proceeding'
-                }).then(() => {
-                    this.$router.push({
-                        path: '/home/ScanningDevice',
-                        query: {redirect: this.$route.fullPath}                               //将即将跳转的路由path作为参数，登录成功后跳转到该路由
-                    })
-                });
-            }else {
-                //console.log('存在设备ID');
-            }
-        },
         components:{
             headerNavBar:headerNavBar,
             VeLine
@@ -197,12 +178,35 @@ a<template>
         computed: {
             myChart1() {
                 return this.$echarts.init(document.getElementById('ScanEcharts1'));
-                
             },
             myChart2() {
                 return this.$echarts.init(document.getElementById('ScanEcharts2'));
             }
-        }
+        },
+        created(){
+            console.log(this.$route);
+            if(this.deviceId == ''){
+                this.$dialog.alert({
+                    message: 'No device selected, please select the device before proceeding'
+                }).then(() => {
+                    this.$router.push({
+                        path: '/home/ScanningDevice',
+                        //query: {redirect: this.$route.fullPath}                               //将即将跳转的路由path作为参数，
+                    })
+                });
+            }else {
+                //console.log('存在设备ID');
+            }
+
+            //进入的时候默认开启自动开启数据通道
+            if(this.$store.state.openDataBl){return false};
+            setTimeout(()=>{
+                android.openData();
+            })
+        },
+        beforeCreate(){
+            window.openDataBack = ()=>{};
+        },
     }
 </script>
 

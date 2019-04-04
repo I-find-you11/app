@@ -1,17 +1,20 @@
 <template>
     <div>
-        <div class='homePage'>   
-            <transition name="fade" mode='out-in' v-if='$route.meta.cache'>
-                <keep-alive>
-                    <router-view/>
-                </keep-alive>
-            </transition>
-
-            <transition name="fade" mode='out-in' v-else>
-                <router-view/>
-            </transition>
+        <div class='homePage'>
+            <div class='keep'>
+                <transition name="fade" mode='out-in'>
+                    <keep-alive>
+                        <router-view v-if='$route.meta.cache' />
+                    </keep-alive>
+                </transition>
+            </div>
+            <div>
+                <transition name="fade" mode='out-in'>
+                    <router-view v-if='!$route.meta.cache' />
+                </transition>
+            </div>
+            
         </div>
-        
         <van-tabbar v-model="nav_active" :change='nav_click()'>
             <van-tabbar-item to='/home/' icon="setting">WIFI Config</van-tabbar-item>
             <van-tabbar-item to='/home/ScanningDevice' icon="aim">Device Scan</van-tabbar-item>
@@ -37,7 +40,7 @@
         },
         watch:{
             $route(to,from){
-                if(to.meta.index) {
+                if(!isNaN(to.meta.index)) {
                     this.nav_active = to.meta.index;   //监听路由跳转  实时刷新底部页面
                 }
             }
@@ -69,5 +72,11 @@
 }
 .homePage {
     padding-bottom: 50px;
+}
+.keep{
+    position: fixed;
+    width: 100%;
+    left: 0;
+    top:0;
 }
 </style>

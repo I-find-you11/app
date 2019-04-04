@@ -49,6 +49,7 @@
             airkissCall(msg) {
                 clearTimeout(this.timer);
                 this.$Toast('Connect Successfully Done!');
+                this.$store.state.sacn =[];    //配网完成后 把 已经扫描到的设备清空 进入扫描页面的时候再默认自动扫描
             },
             submit(){
                 if(this.wifiInfor.wifiName && this.wifiInfor.wifiPassword) { 
@@ -60,8 +61,8 @@
                         duration:0
                     });
                     this.timer = setTimeout(()=>{
-                        this.$Toast('Connect Successfully Done!');
-                    },15*1000);          //配网超时 由前端控制 超过定时器设置的时间 显示配网超时
+                        this.$Toast('End of sending');
+                    },30*1000);          //配网超时 由前端控制 超过定时器设置的时间 显示配网时间结术
                 }else {
                     this.$Toast('Wifi name and password cannot be empty');
                 }

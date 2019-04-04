@@ -16,6 +16,9 @@ export default {
 body{
   background: #fafafa;
 }
+#app {
+  font-size: 12px;
+}
 a {
   color:inherit;
 }

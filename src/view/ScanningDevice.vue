@@ -72,6 +72,7 @@
                 },500)
             },
             changeDevice(ip,index){
+                this.$store.state.deviceIsContent = false;
                 android.switchIp(ip);
                 this.$store.state.deviceInfor.ip = ip;
                 this.$store.state.deviceInfor.index = index;
@@ -95,8 +96,6 @@
                 }else{
                     this.$Toast('Scan Over');
                 }
-                
-                
             }
         },
         components:{
@@ -104,8 +103,6 @@
         },
         store,
         created() {
-            console.log(1);
-            //函数执行时间过长 用异步加载
             if(this.$store.state.sacn.length > 0){
                 this.deviceList = this.$store.state.sacn;
             }else {

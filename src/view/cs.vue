@@ -1,6 +1,16 @@
 <template>
     <div>
-        <p v-for='(item,index) in arr' :key='index'>{{arrAll(item)}}</p>
+        <p v-for='(item,index) in list' :key='index'>
+            <span v-for='(listItem,listIndex) in item.listD' :key='listIndex'>
+                {{all?'1':item.bl?'1':listItem?'1':'0'}}<br>
+            </span>
+            <span @click='item.bl = !item.bl'>选择/取消 局部全选   {{item.bl}}</span>
+            <br>
+            <br>
+            <br>
+            <br>
+        </p>
+        <span @click='all = !all'>选择/取消 全部全选   {{all}}</span>
     </div>
 </template>
 
@@ -8,14 +18,28 @@
     export default {
         data () {
             return {
-                arr :[
-                    [0],
-                    [0,1],
-                    [0,1,2],
-                    [0,1,2,3],
-                    [0,1,2,3,4],
-                    [0,1,2,3,4,5],
-                    [0,1,2,3,4,5,6]
+                all:true,
+                list:[
+                    {
+                        bl:true,
+                        listD:[
+                            true,
+                            false,
+                            true,
+                            false,
+                            true,
+                        ]
+                    },
+                    {
+                        bl:false,
+                        listD:[
+                            true,
+                            false,
+                            true,
+                            false,
+                            true,
+                        ]
+                    },
                 ]
             }
         },

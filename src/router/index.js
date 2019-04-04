@@ -32,7 +32,8 @@ const homeChild = [
     component: airkiss,
     meta:{
       index:0,
-      requireAuth : true              
+      requireAuth : true,
+      cache:true      
     }
   },{
     path: '/home/ScanningDevice',
